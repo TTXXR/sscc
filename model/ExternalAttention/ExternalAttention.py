@@ -4,14 +4,19 @@ from torch.nn import init
 
 
 class ExternalAttention(nn.Module):
-    def __init__(self, input_size, s=256):
+    def __init__(self, input_size, hidden_size, drop):
         super(ExternalAttention, self).__init__()
         self.input_size = input_size
 
-        self.Mk = nn.Linear(input_size, s, bias=False)
-        self.Mv = nn.Linear(s, input_size, bias=False)
-        self.softmax = nn.Softmax(dim=1)
+        self.Mk = nn.Linear(input_size, hidden_size, bias=False)
+        self.Mv = nn.Linear(hidden_size, input_size, bias=False)
 
+        self.softmax = nn.Softmax(dim=-2)
+        self.attn_drop = nn.Dropout(drop)
+
+        self.init_weights()
+
+    def init_weights(self):
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
                 init.kaiming_normal_(m.weight, mode='fan_out')
@@ -28,7 +33,7 @@ class ExternalAttention(nn.Module):
     def forward(self, x):
         attn = self.Mk(x)
         attn = self.softmax(attn)
-        attn = attn / (1e-9 + attn.sum(dim=1, keepdim=True))  # norm
+        attn = self.attn_drop(attn)
+        attn = attn / (1e-9 + attn.sum(dim=-1, keepdim=True))  # norm
         x = self.Mv(attn)
-
         return x

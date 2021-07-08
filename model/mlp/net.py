@@ -28,6 +28,8 @@ class Model(object):
                  decoder_dim, decoder_dropout,
                  # optim param
                  lr,
+                 # attn layer num
+                 layer_num,
                  ):
         self.model_name = model_name
         self.epoch = epoch
@@ -35,12 +37,13 @@ class Model(object):
 
         self.encoder_dim = encoder_dim
         self.mlp_ratio = mlp_ratio
+        self.layer_num = layer_num
         self.encoder_dropout = encoder_dropout
         self.decoder_dim = decoder_dim
         self.decoder_dropout = decoder_dropout
 
         # build mlp_network
-        encoder = Encoder(self.encoder_dim, self.mlp_ratio, self.encoder_dropout)
+        encoder = Encoder(self.encoder_dim, self.mlp_ratio, self.layer_num, self.encoder_dropout)
         if torch.cuda.is_available():
             encoder = nn.DataParallel(encoder.cuda())
         self.encoder = encoder

@@ -14,5 +14,6 @@ conf = {
         'decoder_dim': [5307, 4096, 2048, 1024, 618],
         'decoder_dropout': 0.3,
         'lr': 0.001,
+        'layer_num': 4,
     },
 }
