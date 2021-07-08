@@ -1,0 +1,13 @@
+/home/rr/anaconda3/envs/torch/bin/python /home/rr/da_rnn/darnn_upd/main.py
+2021-03-15 10:33:49,416 - VOC_TOPICS - INFO - Using computation device: cuda:0
+2021-03-15 10:35:54,922 - VOC_TOPICS - INFO - Shape of data: (28418, 5925).
+Missing in data: 0.
+2021-03-15 10:36:04,775 - VOC_TOPICS - INFO - Training size: 19892.
+2021-03-15 10:36:18,988 - VOC_TOPICS - INFO - Iterations per epoch: 310.812 ~ 311.
+2021-03-15 10:52:33,174 - VOC_TOPICS - INFO - Epoch 0, train loss: 0.507, val loss: 0.3688181376733888.
+2021-03-15 11:44:29,072 - VOC_TOPICS - INFO - Epoch 3, train loss: 0.243, val loss: 0.33864833716248527.
+2021-03-15 12:44:33,551 - VOC_TOPICS - INFO - Epoch 6, train loss: 0.200, val loss: 0.3324433874836449.
+2021-03-15 13:55:39,831 - VOC_TOPICS - INFO - Epoch 9, train loss: 0.180, val loss: 0.3330404676483119.
+2021-03-15 15:02:01,630 - VOC_TOPICS - INFO - Epoch 12, train loss: 0.167, val loss: 0.3333135552838154.
+
+Process finished with exit code 0
