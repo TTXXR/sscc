@@ -21,20 +21,26 @@ print('cuda is available:', torch.cuda.is_available())
 class Model(object):
     def __init__(self,
                  # For Model base information
-                 model_name, epoch, batch_size,
+                 model_name, epoch, batch_size, save_path, load_path,
+                 # For Date information
+                 train_source, test_source,
                  # For encoder mlp_network information
-                 encoder_dim, mlp_ratio, encoder_dropout,
+                 segmentation, encoder_dim, encoder_num, mlp_ratio, encoder_dropout,
                  # For decoder mlp_network information
                  decoder_dim, decoder_dropout,
                  # optim param
-                 lr,
-                 # attn layer num
-                 layer_num,
+                 lr, layer_num
                  ):
         self.model_name = model_name
         self.epoch = epoch
         self.batch_size = batch_size
+        self.save_path = save_path
+        self.load_path = load_path
 
+        self.train_source = train_source
+        self.test_source = test_source
+
+        self.segmentation = segmentation
         self.encoder_dim = encoder_dim
         self.mlp_ratio = mlp_ratio
         self.layer_num = layer_num

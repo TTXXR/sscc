@@ -12,6 +12,11 @@ class Server(object):
     def __init__(self, model_path, epoch, batch_size=1):
         print("Initializing model...")
         conf["model"]["batch_size"] = batch_size
+        conf["model"]["load_path"] = model_path
+        conf["model"]["save_path"] = model_path
+        conf["model"]["train_source"] = None
+        conf["model"]["test_source"] = None
+
         self.model = Model(**conf["model"])
         print("Model initialization complete.")
 
@@ -25,11 +30,15 @@ class Server(object):
         self.csv_writer = csv.writer(open('test.csv', 'w', newline=""))
 
     def forward(self, x):
-        x = torch.tensor(x)
-        x = (x - self.input_mean) / self.input_std
-        data = self.model.forward(x.unsqueeze(0))
-        data = data[0].cpu().detach()
-        data = data * self.output_std + self.output_mean
-        data = data.numpy().tolist()
-        self.csv_writer.writerow(data)
+
+        torch.cuda.empty_cache()
+        with torch.no_grad():
+
+            x = torch.tensor(x)
+            x = (x - self.input_mean) / self.input_std
+            data = self.model.forward(x.unsqueeze(0))
+            data = data[0].cpu().detach()
+            data = data * self.output_std + self.output_mean
+            data = data.numpy().tolist()
+            self.csv_writer.writerow(data)
         return data

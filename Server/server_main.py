@@ -8,8 +8,8 @@ from Server.network_server import Server
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 print("Building Server")
-server = Server(model_path="C:/Users/rr/Desktop/sftp/mlp/trained-bl",
-                epoch=60)
+server = Server(model_path="F:/trained/21_8_3",
+                epoch=80)
 print("Building Finish")
 
 
