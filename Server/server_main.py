@@ -1,5 +1,3 @@
-import joblib
-
 from flask import *
 from flask_cors import CORS
 
@@ -8,8 +6,8 @@ from Server.network_server import Server
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 print("Building Server")
-server = Server(model_path="F:/trained/21_8_3",
-                epoch=80)
+server = Server(model_path="F:/trained/21_8_10.2",
+                epoch=40)
 print("Building Finish")
 
 

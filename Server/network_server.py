@@ -6,6 +6,7 @@ from utils.utils import get_norm
 
 from model.mlp.config import conf
 from model.mlp.net import *
+# from model.mlp.net_mh import *
 
 
 class Server(object):
@@ -24,21 +25,19 @@ class Server(object):
         self.model.to_eval()
 
         self.data = torch.empty(0, 5307)
-        self.input_mean, self.input_std = get_norm("C:/Users/rr/Desktop/documents/Export/InputNorm.txt")
-        self.output_mean, self.output_std = get_norm("C:/Users/rr/Desktop/documents/Export/OutputNorm.txt")
+        self.input_mean, self.input_std = \
+            get_norm(r"F:\AI4Animation-master\AI4Animation\SIGGRAPH_Asia_2019\Export\InputNorm.txt")
+        self.output_mean, self.output_std = \
+            get_norm(r"F:\AI4Animation-master\AI4Animation\SIGGRAPH_Asia_2019\Export\OutputNorm.txt")
 
         self.csv_writer = csv.writer(open('test.csv', 'w', newline=""))
 
     def forward(self, x):
-
-        torch.cuda.empty_cache()
-        with torch.no_grad():
-
-            x = torch.tensor(x)
-            x = (x - self.input_mean) / self.input_std
-            data = self.model.forward(x.unsqueeze(0))
-            data = data[0].cpu().detach()
-            data = data * self.output_std + self.output_mean
-            data = data.numpy().tolist()
-            self.csv_writer.writerow(data)
+        x = torch.tensor(x)
+        x = (x - self.input_mean) / self.input_std
+        data = self.model.forward(x.unsqueeze(0))
+        data = data[0].cpu().detach()
+        data = data * self.output_std + self.output_mean
+        data = data.numpy().tolist()
+        self.csv_writer.writerow(data)
         return data

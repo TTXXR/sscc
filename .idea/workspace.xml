@@ -19,8 +19,9 @@
     <select>
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="BRANCH:main" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:origin/main" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </select>
   </component>
@@ -29,8 +30,11 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/network_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/network_server.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/server_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/server_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/test.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Server/test.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/mlp/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/mlp/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/mlp/mlp_network/Encoder.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/mlp/mlp_network/Encoder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/mlp/mlp_network/ExternalAttention/ExternalAttention.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/mlp/mlp_network/ExternalAttention/ExternalAttention.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/mlp/mlp_network/ExternalAttention/MultHeadEA.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/mlp/mlp_network/ExternalAttention/MultHeadEA.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/mlp/net.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/mlp/net.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -126,7 +130,7 @@
       <workItem from="1627367726642" duration="2217000" />
       <workItem from="1627971967999" duration="10758000" />
       <workItem from="1628041386137" duration="5322000" />
-      <workItem from="1628050710128" duration="3450000" />
+      <workItem from="1628050710128" duration="25828000" />
     </task>
     <servers />
   </component>
@@ -144,7 +148,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="main" />
+                        <option value="origin/main" />
                       </list>
                     </value>
                   </entry>
@@ -158,33 +162,33 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="2151" height="268" key="GridCell.Tab.0.bottom" timestamp="1628058858908">
+    <state width="2151" height="264" key="GridCell.Tab.0.bottom" timestamp="1628577512162">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state width="2151" height="268" key="GridCell.Tab.0.bottom/0.0.2194.1194@0.0.2194.1194" timestamp="1628058858908" />
-    <state width="2151" height="268" key="GridCell.Tab.0.center" timestamp="1628058858908">
+    <state width="2151" height="264" key="GridCell.Tab.0.bottom/0.0.2194.1194@0.0.2194.1194" timestamp="1628577512162" />
+    <state width="2151" height="264" key="GridCell.Tab.0.center" timestamp="1628577512162">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state width="2151" height="268" key="GridCell.Tab.0.center/0.0.2194.1194@0.0.2194.1194" timestamp="1628058858908" />
-    <state width="2151" height="268" key="GridCell.Tab.0.left" timestamp="1628058858908">
+    <state width="2151" height="264" key="GridCell.Tab.0.center/0.0.2194.1194@0.0.2194.1194" timestamp="1628577512162" />
+    <state width="2151" height="264" key="GridCell.Tab.0.left" timestamp="1628577512162">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state width="2151" height="268" key="GridCell.Tab.0.left/0.0.2194.1194@0.0.2194.1194" timestamp="1628058858908" />
-    <state width="2151" height="268" key="GridCell.Tab.0.right" timestamp="1628058858908">
+    <state width="2151" height="264" key="GridCell.Tab.0.left/0.0.2194.1194@0.0.2194.1194" timestamp="1628577512162" />
+    <state width="2151" height="264" key="GridCell.Tab.0.right" timestamp="1628577512162">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state width="2151" height="268" key="GridCell.Tab.0.right/0.0.2194.1194@0.0.2194.1194" timestamp="1628058858908" />
+    <state width="2151" height="264" key="GridCell.Tab.0.right/0.0.2194.1194@0.0.2194.1194" timestamp="1628577512162" />
     <state x="574" y="255" key="SettingsEditor" timestamp="1628050860567">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
     <state x="461" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1627367739756" />
     <state x="574" y="255" key="SettingsEditor/0.0.2194.1194@0.0.2194.1194" timestamp="1628050860567" />
-    <state x="760" y="264" width="672" height="678" key="search.everywhere.popup" timestamp="1627975172023">
+    <state x="760" y="264" width="672" height="678" key="search.everywhere.popup" timestamp="1628214005640">
       <screen x="0" y="0" width="2194" height="1194" />
     </state>
-    <state x="760" y="264" width="672" height="678" key="search.everywhere.popup/0.0.2194.1194@0.0.2194.1194" timestamp="1627975172023" />
+    <state x="760" y="264" width="672" height="678" key="search.everywhere.popup/0.0.2194.1194@0.0.2194.1194" timestamp="1628214005640" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/sscc$server_main.coverage" NAME="server_main Coverage Results" MODIFIED="1628058858901" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Server" />
+    <SUITE FILE_PATH="coverage/sscc$server_main.coverage" NAME="server_main Coverage Results" MODIFIED="1628577512157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Server" />
   </component>
 </project>

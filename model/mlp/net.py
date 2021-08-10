@@ -12,11 +12,6 @@ import torch.utils.data as tordata
 
 from .mlp_network import Encoder, Decoder
 
-# Check GPU available
-print('CUDA_HOME:', torch.utils.cpp_extension.CUDA_HOME)
-print('torch cuda version:', torch.version.cuda)
-print('cuda is available:', torch.cuda.is_available())
-
 
 class Model(object):
     def __init__(self,
@@ -50,13 +45,8 @@ class Model(object):
 
         # build mlp_network
         encoder = Encoder(self.encoder_dim, self.mlp_ratio, self.layer_num, self.encoder_dropout)
-        if torch.cuda.is_available():
-            encoder = nn.DataParallel(encoder.cuda())
         self.encoder = encoder
-
         decoder = Decoder(self.decoder_dim, self.decoder_dropout)
-        if torch.cuda.is_available():
-            decoder = nn.DataParallel(decoder.cuda())
         self.decoder = decoder
 
         # build optimizer
@@ -67,25 +57,18 @@ class Model(object):
         # build loss function
         self.loss_function = nn.MSELoss(reduction='mean')
 
-    def up_lr(self):
-        pass
-
-    def save(self, save_path, e):
-        # Save Model
-        torch.save(self.encoder.state_dict(), os.path.join(save_path, str(e)+"encoder.pth"))
-        torch.save(self.decoder.state_dict(), os.path.join(save_path, str(e)+"decoder.pth"))
-        # Save optimizer
-        torch.save(self.encoder_optimizer.state_dict(), os.path.join(save_path, str(e)+"encoder_optimizer.pth"))
-        torch.save(self.decoder_optimizer.state_dict(),
-                   os.path.join(save_path, str(e)+"decoder_optimizer.pth"))
-
     def load(self, load_path, e):
-        self.encoder.load_state_dict(torch.load(os.path.join(load_path, str(e)+'encoder.pth')))
-        self.decoder.load_state_dict(torch.load(os.path.join(load_path, str(e)+'decoder.pth')))
+        self.encoder.load_state_dict(torch.load(
+            os.path.join(load_path, str(e)+'encoder.pth'), map_location=lambda storage, loc: storage))
+        self.decoder.load_state_dict(torch.load(
+            os.path.join(load_path, str(e)+'decoder.pth'), map_location=lambda storage, loc: storage))
 
-        self.encoder_optimizer.load_state_dict(torch.load(os.path.join(load_path, str(e)+'encoder_optimizer.pth')))
+        self.encoder_optimizer.load_state_dict(
+            torch.load(os.path.join(load_path, str(e)+'encoder_optimizer.pth'),
+                       map_location=lambda storage, loc: storage))
         self.decoder_optimizer.load_state_dict(
-            torch.load(os.path.join(load_path, str(e)+'decoder_optimizer.pth')))
+            torch.load(os.path.join(load_path, str(e)+'decoder_optimizer.pth'),
+                       map_location=lambda storage, loc: storage))
 
     def to_eval(self):
         self.encoder.eval()

@@ -10,31 +10,25 @@ class Encoder(nn.Module):
 
         self.drop = nn.Dropout(dropout)
         self.norm = norm(dim)
-
-        # pure MLP
-        self.mlp1 = Mlp(in_features=dim, hidden_features=int(dim * mlp_ratio), act_layer=act, drop=dropout)
-
-        # external attention
-        # self.hidden_size = int(dim * mlp_ratio)
-        self.hidden_size = int(dim / 5)  # dim 5307
-
         self.attn_num = layer_num
-        self.attn_blocks = nn.ModuleList(
-            [ExternalAttention(input_size=dim, hidden_size=self.hidden_size, drop=dropout)
-             for _ in range(self.attn_num)])
 
+        # MLP
+        self.mlp1 = Mlp(in_features=dim, hidden_features=int(dim * mlp_ratio), act_layer=act, drop=dropout)
         # mult head EA
-        self.multhead_attn = MultHeadEA(dim, dropout, num_heads=8, coef=4)
+        self.mult_head_attn = MultHeadEA(dim, dropout, num_heads=12, coef=4)
+        # external attention
+        self.attn_blocks = nn.ModuleList(
+            [ExternalAttention(input_size=dim, drop=dropout) for _ in range(self.attn_num)])
 
     def forward(self, x):
-        # pure MLP
-        # x = x + self.drop(self.mlp1(self.norm(x)))
-
-        # mult head EA
-
         # external attention
-        for attn in self.attn_blocks:
-            x = x + self.drop(attn(self.norm(x)))
+        # for attn in self.attn_blocks:
+        #     x = x + attn(x)
+
+        # pure MLP
+        # x = x + self.mlp1(self.norm(x))
+
+        x = x + self.mult_head_attn(x)
         return x
 
 
