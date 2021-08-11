@@ -15,7 +15,7 @@ class Encoder(nn.Module):
         # MLP
         self.mlp1 = Mlp(in_features=dim, hidden_features=int(dim * mlp_ratio), act_layer=act, drop=dropout)
         # mult head EA
-        self.mult_head_attn = MultHeadEA(dim, dropout, num_heads=12, coef=4)
+        self.mult_head_attn = MultHeadEA(dim, dropout, num_heads=8, coef=4)
         # external attention
         self.attn_blocks = nn.ModuleList(
             [ExternalAttention(input_size=dim, drop=dropout) for _ in range(self.attn_num)])

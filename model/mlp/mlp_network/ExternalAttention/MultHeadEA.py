@@ -53,8 +53,8 @@ class MultHeadEA(nn.Module):
         attn = attn / (1e-9 + attn.sum(dim=-1, keepdim=True))  # norm
         attn = self.attn_drop(attn)
 
-        x = self.Mv(attn).permute(0, 2, 1, 3).view(b, self.n, -1)
-        x = x.view(b, -1)
+        x = self.Mv(attn).permute(0, 2, 1, 3).contiguous().view(b, self.n, -1)
+        x = x.contiguous().view(b, -1)
         proj = self.proj(x)
         proj = self.proj_drop(proj)
 

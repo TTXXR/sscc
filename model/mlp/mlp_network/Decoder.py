@@ -5,6 +5,7 @@ from .attention.gelu import GELU
 class Decoder(nn.Module):
     def __init__(self, dims, dropout):
         super().__init__()
+        self.norm = nn.LayerNorm(dims[0])
         self.layer = nn.Sequential(nn.Linear(dims[0], dims[1]),
                                    GELU(),
                                    nn.Dropout(dropout),
@@ -18,5 +19,5 @@ class Decoder(nn.Module):
                                    )
 
     def forward(self, x):
-        x = self.layer(x)
+        x = self.layer(self.norm(x))
         return x
