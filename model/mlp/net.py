@@ -11,6 +11,7 @@ import torch.utils.cpp_extension
 import torch.utils.data as tordata
 
 from .mlp_network import Encoder, Decoder
+from .mlp_network import MEncoder
 
 
 class Model(object):
@@ -45,9 +46,10 @@ class Model(object):
 
         # build mlp_network
         encoder = Encoder(self.encoder_dim, self.mlp_ratio, self.layer_num, self.encoder_dropout)
-        self.encoder = encoder
+        # encoder = MEncoder(self.encoder_dim, self.mlp_ratio, self.layer_num, self.encoder_dropout)
+        self.encoder = encoder.cuda()
         decoder = Decoder(self.decoder_dim, self.decoder_dropout)
-        self.decoder = decoder
+        self.decoder = decoder.cuda()
 
         # build optimizer
         self.lr = lr
@@ -58,6 +60,8 @@ class Model(object):
         self.loss_function = nn.MSELoss(reduction='mean')
 
     def load(self, load_path, e):
+        """
+        # cpu
         self.encoder.load_state_dict(torch.load(
             os.path.join(load_path, str(e)+'encoder.pth'), map_location=lambda storage, loc: storage))
         self.decoder.load_state_dict(torch.load(
@@ -69,12 +73,24 @@ class Model(object):
         self.decoder_optimizer.load_state_dict(
             torch.load(os.path.join(load_path, str(e)+'decoder_optimizer.pth'),
                        map_location=lambda storage, loc: storage))
+        """
+        # gpu
+        self.encoder.load_state_dict(torch.load(
+            os.path.join(load_path, str(e) + 'encoder.pth')))
+        self.decoder.load_state_dict(torch.load(
+            os.path.join(load_path, str(e) + 'decoder.pth')))
+
+        self.encoder_optimizer.load_state_dict(
+            torch.load(os.path.join(load_path, str(e) + 'encoder_optimizer.pth')))
+        self.decoder_optimizer.load_state_dict(
+            torch.load(os.path.join(load_path, str(e) + 'decoder_optimizer.pth')))
 
     def to_eval(self):
         self.encoder.eval()
         self.decoder.eval()
 
     def forward(self, x):
+        x = x.cuda()
         x = self.encoder(x)
         x = self.decoder(x)
         return x
