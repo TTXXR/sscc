@@ -11,7 +11,7 @@ class ExternalAttention(nn.Module):
         # reshaped
         self.extend_size = 4096
         self.hidden_size = 64
-        self.n = 8
+        self.n = 16
 
         self.extend = nn.Linear(self.input_size, self.extend_size)
         self.proj = nn.Linear(self.extend_size, self.input_size)

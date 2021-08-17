@@ -15,20 +15,23 @@ class Encoder(nn.Module):
         # MLP
         # self.mlp1 = Mlp(in_features=dim, hidden_features=int(dim * mlp_ratio), act_layer=act, drop=dropout)
         # mult head EA
-        # self.mult_head_attn = MultHeadEA(dim, dropout, num_heads=8, coef=4)
+        self.mh_blocks = nn.ModuleList(
+            [MultHeadEA(dim, dropout, num_heads=8) for _ in range(self.attn_num)])
+        # self.mult_head_attn = MultHeadEA(dim, dropout, num_heads=8)
         # external attention
-        self.attn_blocks = nn.ModuleList(
-            [ExternalAttention(input_size=dim, drop=dropout) for _ in range(self.attn_num)])
+        # self.attn_blocks = nn.ModuleList(
+        #     [ExternalAttention(input_size=dim, drop=dropout) for _ in range(self.attn_num)])
 
     def forward(self, x):
         # external attention
-        for attn in self.attn_blocks:
-            x = x + attn(x)
+        # for attn in self.attn_blocks:
+        #     x = x + attn(x)
 
         # pure MLP
         # x = x + self.mlp1(self.norm(x))
 
-        # x = x + self.mult_head_attn(x)
+        for block in self.mh_blocks:
+            x = x + block(x)
         return x
 
 

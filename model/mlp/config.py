@@ -15,7 +15,7 @@ conf = {
         'encoder_dropout': 0.3,
         'decoder_dim': [5307, 4096, 2048, 1024, 618],
         'decoder_dropout': 0.3,
-        'lr': 0.0007,
-        'layer_num': 1
+        'lr': 0.0005,
+        'layer_num': 6,
     },
 }

@@ -10,13 +10,14 @@ from model.mlp.net import *
 
 
 class Server(object):
-    def __init__(self, model_path, epoch, batch_size=1):
+    def __init__(self, model_path, epoch, gpu, batch_size=1):
         print("Initializing model...")
         conf["model"]["batch_size"] = batch_size
         conf["model"]["load_path"] = model_path
         conf["model"]["save_path"] = model_path
         conf["model"]["train_source"] = None
         conf["model"]["test_source"] = None
+        conf["model"]["gpu"] = gpu
 
         self.model = Model(**conf["model"])
         print("Model initialization complete.")

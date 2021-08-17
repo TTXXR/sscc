@@ -7,8 +7,9 @@ from Server.network_server import Server
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 print("Building Server")
-server = Server(model_path="F:/trained/21_8_13",
-                epoch=140)
+server = Server(model_path="F:/trained/21_8_16.2",
+                epoch=180,
+                gpu=False)
 print("Building Finish")
 
 
@@ -30,11 +31,8 @@ def af_request(resp):
 def upload():
     output = None
     try:
-        start = time.time()
         x = request.json["data"]
         output = server.forward(x)
-        end1 = time.time()
-        print("**all time** ", end1-start)
         """
         t_pose_output = [0.0, 1.05086136, -0.05000019, 0.0, 0.101513706, 0.9948341, 0.0, 0.9948341, -0.101513706, 0.0292898063,
                   0.00141732581, -0.14595969, 0.0, 1.16418707, -0.061961174, 0.0, -0.09219824, 0.995740652, 0.0,
